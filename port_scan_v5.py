@@ -11,62 +11,68 @@ try:
   print ('%s hosts discovered.' % num_ip)
 #- - - - - - - - - - - - 
 
-  number = int(raw_input("Press 1 to lite port scan, press 2 to full port scan:"))
+  while True:
+    number = int(raw_input("Press 1 to lite port scan, press 2 to full port scan:"))
 
-  if number == 1:
+    if number == 1:
 
-    # perform port scan for enumerated hosts.
-    f = open ("hosts.txt", "r")
-    f1 = f.readlines()
-    print ('Lite port scan started.')
+      # perform port scan for enumerated hosts.
+      f = open ("hosts.txt", "r")
+      f1 = f.readlines()
+      print ('Lite port scan started.')
 
-    progress = 0.0
-    increment = 100.0 / float(num_lines)
-    #print increment
+      progress = 0.0
+      increment = 100.0 / float(num_lines)
+      #print increment
 
-    for ip_add in f1:
-      ip_add = ip_add.rstrip()
-      cmd = 'nmap -p 1-1000 -T4 -Pn %s' % ip_add
-      output = commands.getoutput(cmd)
-      f = open ("%s.txt" % ip_add, "w")
-      f.write(output)
+      for ip_add in f1:
+        ip_add = ip_add.rstrip()
+        cmd = 'nmap -p 1-1000 -T4 -Pn %s' % ip_add
+        output = commands.getoutput(cmd)
+        f = open ("%s.txt" % ip_add, "w")
+        f.write(output)
 
-      progress += increment
+        progress += increment
 
-      sys.stdout.write("\r")
-      sys.stdout.write(str(progress) + "%")
-      sys.stdout.flush()
+        sys.stdout.write("\r")
+        sys.stdout.write(str(progress) + "%")
+        sys.stdout.flush()
 
-    sys.stdout.write("\n")
-    print ('Lite port scan complete. check the directory for files.')
+      sys.stdout.write("\n")
+      print ('Lite port scan complete. check the directory for files.')
 #- - - - - - - - - - - - - - - -
 
-  elif number == 2:
+    elif number == 2:
 
-    # perform port scan for enumerated hosts.
-    f = open ("hosts.txt", "r")
-    f1 = f.readlines()
-    print ('Full port scan started.')
+      # perform port scan for enumerated hosts.
+      f = open ("hosts.txt", "r")
+      f1 = f.readlines()
+      print ('Full port scan started.')
 
-    progress = 0.0
-    increment = 100.0 / float(num_lines)
-    #print increment
+      progress = 0.0
+      increment = 100.0 / float(num_lines)
+      #print increment
 
-    for ip_add in f1:
-      ip_add = ip_add.rstrip()
-      cmd = 'nmap -p - -T4 -A -v -Pn %s' % ip_add
-      output = commands.getoutput(cmd)
-      f = open ("%s.txt" % ip_add, "w")
-      f.write(output)
+      for ip_add in f1:
+        ip_add = ip_add.rstrip()
+        cmd = 'nmap -p - -T4 -A -v -Pn %s' % ip_add
+        output = commands.getoutput(cmd)
+        f = open ("%s.txt" % ip_add, "w")
+        f.write(output)
 
-      progress += increment
+        progress += increment
 
-      sys.stdout.write("\r")
-      sys.stdout.write(str(progress) + "%")
-      sys.stdout.flush()
+        sys.stdout.write("\r")
+        sys.stdout.write(str(progress) + "%")
+        sys.stdout.flush()
 
-    sys.stdout.write("\n")
-    print ('Full port scan complete. check the directory for files.')
+      sys.stdout.write("\n")
+      print ('Full port scan complete. check the directory for files.')
+#- - - - - - - - - - - - - - - -
+
+    else:
+      print ("invalid, retry")
+      continue
 #- - - - - - - - - - - - - - - -
 
 except KeyboardInterrupt:
